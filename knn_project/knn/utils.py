@@ -5,8 +5,8 @@ from typing import Tuple
 
 def train_test_split_simple(df: pd.DataFrame,
                             label_col: str = "Species",
-                            train_frac: float = 0.7,
-                            random_state: int = 30) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+                            train_frac: float = 0.5 ,
+                            random_state: int = 13) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     
     if label_col not in df.columns: #verifica a existência da coluna de espécies
         raise ValueError(f"Coluna de rótulo '{label_col}' não encontrada no DataFrame.")
@@ -16,7 +16,8 @@ def train_test_split_simple(df: pd.DataFrame,
 
     #Embaralha e reseta índice
     df = df.drop(columns=["Id"])
-    df_shuffled = df.sample(frac=1, random_state=random_state).reset_index(drop=True)
+    # df_shuffled = df.sample(frac=1, random_state=random_state).reset_index(drop=True)
+    df_shuffled = df.sample(frac=1).reset_index(drop=True)
 
     n = len(df_shuffled)
     train_size = int(train_frac * n)
