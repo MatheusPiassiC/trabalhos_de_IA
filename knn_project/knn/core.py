@@ -1,5 +1,5 @@
-import pandas
 import utils 
+import metrics
 
 
 
@@ -21,9 +21,24 @@ X_test_scaled = utils.aplicar_min_max_scaling(X_test, min_max)
 # print(X_train_scaled.dtypes)
 # print(X_test_scaled.dtypes)
 
-k = 3
+k = 7
 pred = utils.knn_predict(X_train_scaled, y_train, X_test_scaled, k)
-print(pred[:5])
-print(y_test[:5])
+acertos = 0
+# tam = len(pred)
+# for i in range(tam):
+#     acertou = False
+#     if pred[i] == y_test[i]:
+#          acertos += 1 
+#          acertou = True
+#     print(pred[i] + " " + y_test[i] + " " + str(acertou))
+
+matriz = metrics.matriz_confusao(pred, y_test)
+print(matriz)
+
+
+    
+# print(str(acertos) + "/" + str(tam))
+# print(pred[:5])
+# print(y_test[:5])
 
 
