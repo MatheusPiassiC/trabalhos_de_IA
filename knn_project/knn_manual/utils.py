@@ -1,6 +1,4 @@
-import pandas as pd
-import numpy as np
-from collections import Counter
+import pandas as pd # type: ignore
 from typing import Tuple
 
 def train_test_split_simple(df: pd.DataFrame,
@@ -16,8 +14,8 @@ def train_test_split_simple(df: pd.DataFrame,
 
     #Embaralha e reseta índice
     df = df.drop(columns=["Id"])
-    # df_shuffled = df.sample(frac=1, random_state=random_state).reset_index(drop=True)
-    df_shuffled = df.sample(frac=1).reset_index(drop=True)
+    df_shuffled = df.sample(frac=1, random_state=random_state).reset_index(drop=True)
+    # df_shuffled = df.sample(frac=1).reset_index(drop=True)
 
     n = len(df_shuffled)
     train_size = int(train_frac * n)
@@ -64,39 +62,4 @@ def aplicar_min_max_scaling(X: pd.DataFrame, params: dict) -> pd.DataFrame: #nor
         X_scaled[col] = (X[col] - min_val) / (max_val - min_val)
     return X_scaled
 
-def calcula_distancias(X_train: np.ndarray, x:np.ndarray) -> np.ndarray:
-    dif = X_train - x; #subtrai os valores de x em X_train
-    dif = dif**2       #eleva a diferença ao quadrado
-    dif = dif.sum(axis=1) #faz o somatório
-    dist = np.sqrt(dif)   #tira a raiz
-    return dist  
-
-def pegar_k_vizinhos(X_train: np.ndarray, y_train: np.ndarray, x: np.ndarray, k: int):
-    dist = calcula_distancias(X_train, x) #calcula as distâncias de todos até x
-    indices_ordenados = np.argsort(dist)  #ordena os indices
-    return y_train[indices_ordenados[:k]]
-
-def votar(vizinhos): #retorna a classe mais comum entre os vizinhos mais próximos
-    #print("DEBUG vizinhos:", vizinhos)
-    contagem = Counter(vizinhos)
-    classe_mais_comum = None
-    maior_quantidade = 0
-
-    for classe,quantidade in contagem.items():
-        if quantidade > maior_quantidade:
-            maior_quantidade = quantidade
-            classe_mais_comum = classe
-
-    return classe_mais_comum
-
-def knn_predict(X_train, y_train, X_test, k):
-    y_pred = []
-    X_train_np = X_train.values.astype(float)
-    y_train_np = y_train.values  # se já for string, mantém
-    for i in range(len(X_test)):
-        x = X_test.iloc[i].values.astype(float)
-        vizinhos = pegar_k_vizinhos(X_train_np, y_train_np, x, k)
-        classe = votar(vizinhos)
-        y_pred.append(classe)
-    return np.array(y_pred)
 
