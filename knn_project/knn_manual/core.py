@@ -1,7 +1,5 @@
-import numpy as np
+import numpy as np # type: ignore
 from collections import Counter
-
-
 
 def calcula_distancias(X_train: np.ndarray, x:np.ndarray) -> np.ndarray:
     dif = X_train - x; #subtrai os valores de x em X_train

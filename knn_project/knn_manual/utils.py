@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd # type: ignore
 from typing import Tuple
 
 def train_test_split_simple(df: pd.DataFrame,
@@ -14,8 +14,8 @@ def train_test_split_simple(df: pd.DataFrame,
 
     #Embaralha e reseta índice
     df = df.drop(columns=["Id"])
-    # df_shuffled = df.sample(frac=1, random_state=random_state).reset_index(drop=True)
-    df_shuffled = df.sample(frac=1).reset_index(drop=True)
+    df_shuffled = df.sample(frac=1, random_state=random_state).reset_index(drop=True)
+    # df_shuffled = df.sample(frac=1).reset_index(drop=True)
 
     n = len(df_shuffled)
     train_size = int(train_frac * n)
