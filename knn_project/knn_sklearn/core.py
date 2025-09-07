@@ -1,6 +1,5 @@
 import pandas as pd # type: ignore
 import numpy as np  # type: ignore
-from sklearn.model_selection import train_test_split # type: ignore
 from sklearn.preprocessing import MinMaxScaler # type: ignore
 from sklearn.neighbors import KNeighborsClassifier # type: ignore
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, accuracy_score # type: ignore
